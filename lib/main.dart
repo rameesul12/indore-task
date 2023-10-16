@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:task__for_flutter/controller/login_page_controller.dart';
+import 'package:task__for_flutter/controller/firebase_provider.dart';
 import 'package:task__for_flutter/utlitiz/colors.dart';
 import 'package:task__for_flutter/view/login_screen/sign_in_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,18 +23,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveSizer(
-      builder: (context,Orientation,ScreenType) {
-        return MaterialApp(
-         title: 'Flutter Demo',
-         debugShowCheckedModeBanner: false,
-         theme: ThemeData(
-          scaffoldBackgroundColor: textwhite
-           
-         ),
-         home:const SignInScreen() ,
-            );
-      }
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => FirebaseProvider(),)
+      ],
+      child: ResponsiveSizer(
+        builder: (context,Orientation,ScreenType) {
+          return MaterialApp(
+           title: 'Flutter Demo',
+           debugShowCheckedModeBanner: false,
+           theme: ThemeData(
+            scaffoldBackgroundColor: textwhite
+             
+           ),
+           home:const SignInScreen() ,
+              );
+        }
+      ),
     );
   }
 }
